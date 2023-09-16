@@ -9,7 +9,7 @@ OBJS = $(SRCS:.c=.o)
 CC = g++
 
 # 添加库
-LIBS = -lsqlite3 -lpthread
+LIBS =  -lpthread
 
 # 编译参数 
 CFLAGS = -Wall 
