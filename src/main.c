@@ -37,7 +37,7 @@ module_function modules_array[64];   // 模块函数指针数组
 
 int main()
 {
-    int i, ret, cfd, nread;
+    
     char buf[32];
     SOCKINFO cli_sock;
     bzero(&cli_sock, sizeof(SOCKINFO));
@@ -51,8 +51,11 @@ int main()
     tep.events = EPOLLIN;
     tep.data.fd = sock.fd;
 
-    ret = epoll_ctl(epfd, EPOLL_CTL_ADD, sock.fd, &tep);
-
+    int ret = epoll_ctl(epfd, EPOLL_CTL_ADD, sock.fd, &tep);
+    if(ret == -1)
+    {
+        perror("error");
+    }
     while (1)
     {
         epoll_wait(epfd, ep_arr, 256, -1);
@@ -88,7 +91,7 @@ int main()
                     }
                     else if(len == 4)
                     {    
-                        modules_array[buf[0]](buf);   // 函数指针
+                        modules_array[(u_int8_t)buf[0]](buf);   // 函数指针
                     }
                 }
             }
