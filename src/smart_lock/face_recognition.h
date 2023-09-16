@@ -5,9 +5,13 @@
 #include <jsoncpp/json/json.h>
 #include <fstream>
 #include <memory>
-#ifdef __cplusplus
+
+
+
+#ifdef __cplusplus // 使用c的链接方式
 extern "C" {
 #endif
+
 int face_recognition(std::string base64);
     
 
