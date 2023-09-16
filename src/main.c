@@ -9,9 +9,12 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include "common/common.h"
+#include "client_msg/client_msg.h"
+#include "sensor_info/sensor_info.h"
 
 #define IP "0.0.0.0"
-#define PORT 1200
+#define PORT 12000
 
 typedef struct
 {
@@ -21,6 +24,7 @@ typedef struct
 } SOCKINFO;
 
 SOCKINFO sockinit(char *ipaddr, unsigned short port);
+void module_function_init();
 
 void sys_err(char *str)
 {
@@ -28,13 +32,13 @@ void sys_err(char *str)
     exit(1);
 }
 
-typedef void (*module_function)(int);
+typedef void (*module_function)(char*);
 module_function modules_array[64];   // 模块函数指针数组
 
 int main()
 {
     int i, ret, cfd, nread;
-    char buf[256];
+    char buf[32];
     SOCKINFO cli_sock;
     bzero(&cli_sock, sizeof(SOCKINFO));
     SOCKINFO sock;
@@ -70,7 +74,7 @@ int main()
                 }
                 else
                 { // client send data
-                    int len = read(ep_arr[i].data.fd, buf, 4);
+                    int len = recv_msg(ep_arr[i].data.fd, buf);
                     if (len == -1)
                     {
                         sys_err("read err");
@@ -83,11 +87,8 @@ int main()
                         printf("client close\n");
                     }
                     else if(len == 4)
-                    { 
-                        int msg;
-                        int* msgp = (int*)buf;
-                        msg = ntohl(*msgp);
-                        //   
+                    {    
+                        modules_array[buf[0]](buf);   // 函数指针
                     }
                 }
             }
@@ -127,4 +128,10 @@ SOCKINFO sockinit(char *ipaddr, unsigned short port)
         exit(-1);
     }
     return sock;
+}
+
+void module_function_init()
+{
+    modules_array[CLIENT] = client_msg;
+    modules_array[SENSOR] = sensor_info;
 }
