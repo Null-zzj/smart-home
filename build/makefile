@@ -2,26 +2,36 @@
 TARGET = server
 
 # 源文件
-SRCS = ../processor.cpp ../server.cpp ../sqlor.cpp ../tcpConnect.cpp ../application.cpp
-OBJS = $(SRCS:.c=.o)
+C_SRCS = ../src/client_msg/client_msg.c \
+			../src/common/common.c \
+			../src/sensor_info/sensor_info.c \
+			../src/smart_lock/smart_lock.c \
+			../src/main.c
+CPP_SRCS = ../src/smart_lock/face_recognition.cpp 
+
+C_OBJS = $(C_SRCS:.c=.o)
+CPP_OBJS = $(CPP_SRCS:.cpp=.o)
 
 # 指定编译器
-CC = g++
-
+CC = gcc
+CPP = g++
 # 添加库
-LIBS =  -lpthread
+LIBS =  -lpthread -lcurl -lstdc++
 
-# 编译参数 
+# gcc编译参数 
 CFLAGS = -Wall 
 
 # 规则编译.o 
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $< -o $@
 
+%.o: %.cpp 
+	$(CPP) $(CFLAGS) -c $< -o $@
+
 # 链接目标
-$(TARGET): $(OBJS) 
-	$(CC) -o $(TARGET) $(OBJS) $(LIBS)
+$(TARGET): $(C_OBJS) $(CPP_OBJS)
+	$(CC) -o $(TARGET) $(C_OBJS) $(CPP_OBJS) $(LIBS)
 
 # 清理
 clean:
-	rm -f $(TARGET) $(OBJS)
+	rm -f $(TARGET) $(C_OBJS)  $(CPP_OBJS)
