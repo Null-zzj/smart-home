@@ -6,7 +6,7 @@
 int send_msg(int fd, const char* msg)
 {
     int ret;
-    ret = write(fd, &msg, 36);
+    ret = write(fd, msg, 36);
     if(ret != 4)
     {
         perror("write err");

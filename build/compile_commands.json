@@ -5,51 +5,12 @@
       "-Wall",
       "-c",
       "-o",
-      "../src/client_msg/client_msg.o",
-      "../src/client_msg/client_msg.c"
-    ],
-    "directory": "/home/zzj/desktop/project/build",
-    "file": "/home/zzj/desktop/project/src/client_msg/client_msg.c",
-    "output": "/home/zzj/desktop/project/src/client_msg/client_msg.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/gcc",
-      "-Wall",
-      "-c",
-      "-o",
       "../src/common/common.o",
       "../src/common/common.c"
     ],
     "directory": "/home/zzj/desktop/project/build",
     "file": "/home/zzj/desktop/project/src/common/common.c",
     "output": "/home/zzj/desktop/project/src/common/common.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/gcc",
-      "-Wall",
-      "-c",
-      "-o",
-      "../src/sensor_info/sensor_info.o",
-      "../src/sensor_info/sensor_info.c"
-    ],
-    "directory": "/home/zzj/desktop/project/build",
-    "file": "/home/zzj/desktop/project/src/sensor_info/sensor_info.c",
-    "output": "/home/zzj/desktop/project/src/sensor_info/sensor_info.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/gcc",
-      "-Wall",
-      "-c",
-      "-o",
-      "../src/smart_lock/smart_lock.o",
-      "../src/smart_lock/smart_lock.c"
-    ],
-    "directory": "/home/zzj/desktop/project/build",
-    "file": "/home/zzj/desktop/project/src/smart_lock/smart_lock.c",
-    "output": "/home/zzj/desktop/project/src/smart_lock/smart_lock.o"
   },
   {
     "arguments": [
