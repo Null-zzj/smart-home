@@ -33,7 +33,7 @@ void sys_err(char *str)
 }
 
 typedef void (*module_function)(char*);
-module_function modules_array[64];   // 模块函数指针数组\
+module_function modules_array[64];   // 模块函数指针数组
 
 
 // client 保存所有连接上的客户端
