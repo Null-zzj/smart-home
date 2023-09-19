@@ -29,10 +29,46 @@ void module_function_init();
 void sys_err(char *str)
 {
     perror(str);
+    exit(1);
 }
 
 typedef void (*module_function)(char*);
-module_function modules_array[64];   // 模块函数指针数组
+module_function modules_array[64];   // 模块函数指针数组\
+
+
+// client 保存所有连接上的客户端
+// count保存位置最大的客户端
+typedef struct {
+    int count;
+    int client_array[255];
+}Client;
+
+
+Client client = {0,-1};
+
+int insert_client(int cfd)
+{
+    
+    if(client.count == 255)
+    {
+        printf("已到达最大连接数");
+        return -1;
+    }
+    int flag = 0;
+    for(int i = 0; i < client.count ;i++)
+    {
+        if(client.client_array[i] == -1)
+        {
+            flag = 1;
+            break;
+        }
+    }
+    if (!flag)
+    {
+        client.client_array[client.count++] = cfd;
+    }
+    return 0;
+}
 
 int main()
 {
@@ -42,7 +78,6 @@ int main()
     bzero(&cli_sock, sizeof(SOCKINFO));
     SOCKINFO sock;
     sock = sockinit(IP, PORT);
-    module_function_init();
 
     int epfd = epoll_create(256);
 
@@ -68,17 +103,21 @@ int main()
                     struct sockaddr_in cli_addr;
                     socklen_t cli_len = sizeof(cli_addr);
                     int cfd = accept(sock.fd, (struct sockaddr *)&cli_addr, &cli_len);
-
+                    
                     printf("client connect succsee  ip: %s, port: %d\n", inet_ntoa(cli_addr.sin_addr),
                            ntohs(cli_addr.sin_port));
+                    
+                    
+
+                    client.client_array[client.count++] = cfd;
+
                     tep.events = EPOLLIN;
                     tep.data.fd = cfd;
                     ret = epoll_ctl(epfd, EPOLL_CTL_ADD, cfd, &tep);
                 }
                 else
                 { // client send data
-                    // int len = recv_msg(ep_arr[i].data.fd, buf);
-                    int len = read(ep_arr[i].data.fd, buf, 36);
+                    int len = recv_msg(ep_arr[i].data.fd, buf);
                     if (len == -1)
                     {
                         sys_err("read err");
@@ -92,9 +131,6 @@ int main()
                     }
                     else if(len == 4)
                     {    
-
-
-                        // write(STDOUT_FILENO, buf, 4);
                         modules_array[(u_int8_t)buf[0]](buf);   // 函数指针
                     }
                 }
@@ -135,7 +171,6 @@ SOCKINFO sockinit(char *ipaddr, unsigned short port)
         exit(-1);
     }
     return sock;
-    
 }
 
 void module_function_init()

@@ -5,8 +5,12 @@
 #include <errno.h>
 #include <stdio.h>
 
-#define CLIENT 0xcc
-#define SENSOR 0xbb
+#define CLIENT 0x0
+#define SENSOR 0x1
+#define MONITOR 0x03
+
+
+
 // 通用工具
 
 // 数据传输
