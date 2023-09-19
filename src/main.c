@@ -44,7 +44,7 @@ typedef struct {
 }Client;
 
 
-Client client = {0,-1};
+Client client = {0,{-1}};
 
 int insert_client(int cfd)
 {

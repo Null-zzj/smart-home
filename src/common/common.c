@@ -51,5 +51,5 @@ int recv_msg(int fd, char* msg)
 
 
 
-    
+    return 0;
 }
