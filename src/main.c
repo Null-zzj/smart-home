@@ -29,7 +29,6 @@ void module_function_init();
 void sys_err(char *str)
 {
     perror(str);
-    exit(1);
 }
 
 typedef void (*module_function)(char*);
@@ -43,6 +42,7 @@ int main()
     bzero(&cli_sock, sizeof(SOCKINFO));
     SOCKINFO sock;
     sock = sockinit(IP, PORT);
+    module_function_init();
 
     int epfd = epoll_create(256);
 
@@ -77,7 +77,8 @@ int main()
                 }
                 else
                 { // client send data
-                    int len = recv_msg(ep_arr[i].data.fd, buf);
+                    // int len = recv_msg(ep_arr[i].data.fd, buf);
+                    int len = read(ep_arr[i].data.fd, buf, 36);
                     if (len == -1)
                     {
                         sys_err("read err");
@@ -91,6 +92,9 @@ int main()
                     }
                     else if(len == 4)
                     {    
+
+
+                        // write(STDOUT_FILENO, buf, 4);
                         modules_array[(u_int8_t)buf[0]](buf);   // 函数指针
                     }
                 }
@@ -131,6 +135,7 @@ SOCKINFO sockinit(char *ipaddr, unsigned short port)
         exit(-1);
     }
     return sock;
+    
 }
 
 void module_function_init()
