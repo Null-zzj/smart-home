@@ -5,11 +5,89 @@
       "-Wall",
       "-c",
       "-o",
+      "../src/client_msg/client_msg.o",
+      "../src/client_msg/client_msg.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/client_msg/client_msg.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/client_msg/client_msg.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
       "../src/common/common.o",
       "../src/common/common.c"
     ],
-    "directory": "/home/zzj/desktop/project/build",
-    "file": "/home/zzj/desktop/project/src/common/common.c",
-    "output": "/home/zzj/desktop/project/src/common/common.o"
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/common/common.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/common/common.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/sensor_info/sensor_info.o",
+      "../src/sensor_info/sensor_info.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/sensor_info/sensor_info.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/sensor_info/sensor_info.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/smart_lock/smart_lock.o",
+      "../src/smart_lock/smart_lock.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/smart_lock/smart_lock.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/smart_lock/smart_lock.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/main.o",
+      "../src/main.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/main.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/smart_lock/face_recognition.o",
+      "../src/smart_lock/face_recognition.cpp"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/smart_lock/face_recognition.cpp",
+    "output": "/home/zzj/desktop/project/smart-home/src/smart_lock/face_recognition.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/smart_lock/base64.o",
+      "../src/smart_lock/base64.cpp"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/smart_lock/base64.cpp",
+    "output": "/home/zzj/desktop/project/smart-home/src/smart_lock/base64.o"
   }
 ]

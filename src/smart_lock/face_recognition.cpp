@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <stdio.h>
 #include <iostream>
 #include <string.h>
@@ -5,7 +6,9 @@
 #include <jsoncpp/json/json.h>
 #include <fstream>
 #include <memory>
+#include <string>
 #include "face_recognition.h"
+#include "../tools/base64.h"
 
 inline size_t onWriteData(void * buffer, size_t size, size_t nmemb, void * userp)
 {
@@ -15,8 +18,11 @@ inline size_t onWriteData(void * buffer, size_t size, size_t nmemb, void * userp
 }
 
 
-int face_recognition(char* base64)
+int face_recognition(unsigned const char* pic, size_t len)
 {
+    std::string base64 = base64_encode(pic, len, false);
+
+
     std::string result;
     CURL *curl;
     CURLcode res;
@@ -29,8 +35,8 @@ int face_recognition(char* base64)
         struct curl_slist *headers = NULL;
         headers = curl_slist_append(headers, "Content-Type: application/json");
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-        std::string BASE64 = base64;
-        std::string data = "{\"group_id_list\":\"user1\",\"image\":\"" + BASE64 + "\",\"image_type\":\"BASE64\"}";
+        
+        std::string data = "{\"group_id_list\":\"user1\",\"image\":\"" + base64 + "\",\"image_type\":\"BASE64\"}";
 
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &result);

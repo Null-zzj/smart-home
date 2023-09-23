@@ -7,7 +7,8 @@ C_SRCS = ../src/client_msg/client_msg.c \
 			../src/sensor_info/sensor_info.c \
 			../src/smart_lock/smart_lock.c \
 			../src/main.c
-CPP_SRCS = ../src/smart_lock/face_recognition.cpp 
+CPP_SRCS = ../src/smart_lock/face_recognition.cpp \
+			../src/smart_lock/base64.cpp
 
 C_OBJS = $(C_SRCS:.c=.o)
 CPP_OBJS = $(CPP_SRCS:.cpp=.o)

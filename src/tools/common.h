@@ -7,7 +7,8 @@
 
 #define CLIENT 0x0
 #define SENSOR 0x1
-#define MONITOR 0x03
+#define MONITOR 0x3
+#define LOCK 0x4
 
 
 

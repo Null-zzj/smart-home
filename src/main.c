@@ -9,9 +9,10 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include "common/common.h"
+#include "tools/common.h"
 #include "client_msg/client_msg.h"
 #include "sensor_info/sensor_info.h"
+#include "smart_lock/smart_lock.h"
 
 #define IP "0.0.0.0"
 #define PORT 12000
@@ -177,4 +178,6 @@ void module_function_init()
 {
     modules_array[CLIENT] = client_msg;
     modules_array[SENSOR] = sensor_info;
+    modules_array[MONITOR] = 0;
+    modules_array[LOCK] = smart_lock;
 }

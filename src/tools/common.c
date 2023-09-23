@@ -27,7 +27,7 @@ int recv_msg(int fd, char* msg)
         return -1;
     }
     int count = 1;
-    while(count == 36)
+    while(1)
     {
         ret = read(fd, buf, 36 - count);
         if(ret == -1)
@@ -37,6 +37,10 @@ int recv_msg(int fd, char* msg)
         }
         count += ret;
         buf += ret;
+        if(count == 36)
+        {
+            break;
+        }
     }
 
     switch ((u_char)*msg) {

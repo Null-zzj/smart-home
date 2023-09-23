@@ -1,6 +1,9 @@
 #include "face_recognition.h"
 
-void test()
+void smart_lock(char* str)
 {
-    face_recognition("123");
+
+
+
+
 }
