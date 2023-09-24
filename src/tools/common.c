@@ -1,6 +1,10 @@
 #include "common.h"
 
 
+int g_buzzer_status = 0;
+int g_led_status = 0;
+int g_seven_led_status = 0;
+int g_fan_status = 0;
 
 
 int send_msg(int fd, const char* msg)

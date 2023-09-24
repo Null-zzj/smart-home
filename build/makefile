@@ -3,12 +3,19 @@ TARGET = server
 
 # 源文件
 C_SRCS = ../src/client_msg/client_msg.c \
-			../src/common/common.c \
+			../src/tools/common.c \
 			../src/sensor_info/sensor_info.c \
 			../src/smart_lock/smart_lock.c \
+			../src/tools/uart/led_ctl.c \
+			../src/tools/uart/uart.c \
+			../src/tools/uart/fan_ctl.c \
+			../src/tools/uart/seven_led_ctl.c \
+			../src/tools/uart/buzzer_ctl.c \
+			../src/tools/uart/write_head_bit.c \
+			../src/tools/uart/separate_data.c \
 			../src/main.c
 CPP_SRCS = ../src/smart_lock/face_recognition.cpp \
-			../src/smart_lock/base64.cpp
+			../src/tools/base64.cpp
 
 C_OBJS = $(C_SRCS:.c=.o)
 CPP_OBJS = $(CPP_SRCS:.cpp=.o)

@@ -83,6 +83,8 @@ int fan_ctl(int uart_fd,fan_ctl_cmd_t fan_ctl_cmd)
                 case FAN_ON_HIGH:
                     write_ctl_cmd[4] = FAN_ON_HIGH;
                     break;
+                default:
+                    break;
             }
 
             //写入zigbee中，并且根据返回的开关状态来判断是否打开了

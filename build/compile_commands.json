@@ -18,12 +18,12 @@
       "-Wall",
       "-c",
       "-o",
-      "../src/common/common.o",
-      "../src/common/common.c"
+      "../src/tools/common.o",
+      "../src/tools/common.c"
     ],
     "directory": "/home/zzj/desktop/project/smart-home/build",
-    "file": "/home/zzj/desktop/project/smart-home/src/common/common.c",
-    "output": "/home/zzj/desktop/project/smart-home/src/common/common.o"
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/common.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/common.o"
   },
   {
     "arguments": [
@@ -57,6 +57,97 @@
       "-Wall",
       "-c",
       "-o",
+      "../src/tools/uart/led_ctl.o",
+      "../src/tools/uart/led_ctl.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/uart/led_ctl.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/uart/led_ctl.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/tools/uart/uart.o",
+      "../src/tools/uart/uart.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/uart/uart.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/uart/uart.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/tools/uart/fan_ctl.o",
+      "../src/tools/uart/fan_ctl.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/uart/fan_ctl.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/uart/fan_ctl.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/tools/uart/seven_led_ctl.o",
+      "../src/tools/uart/seven_led_ctl.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/uart/seven_led_ctl.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/uart/seven_led_ctl.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/tools/uart/buzzer_ctl.o",
+      "../src/tools/uart/buzzer_ctl.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/uart/buzzer_ctl.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/uart/buzzer_ctl.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/tools/uart/write_head_bit.o",
+      "../src/tools/uart/write_head_bit.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/uart/write_head_bit.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/uart/write_head_bit.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
+      "../src/tools/uart/separate_data.o",
+      "../src/tools/uart/separate_data.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/uart/separate_data.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/uart/separate_data.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
       "../src/main.o",
       "../src/main.c"
     ],
@@ -83,11 +174,11 @@
       "-Wall",
       "-c",
       "-o",
-      "../src/smart_lock/base64.o",
-      "../src/smart_lock/base64.cpp"
+      "../src/tools/base64.o",
+      "../src/tools/base64.cpp"
     ],
     "directory": "/home/zzj/desktop/project/smart-home/build",
-    "file": "/home/zzj/desktop/project/smart-home/src/smart_lock/base64.cpp",
-    "output": "/home/zzj/desktop/project/smart-home/src/smart_lock/base64.o"
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/base64.cpp",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/base64.o"
   }
 ]
