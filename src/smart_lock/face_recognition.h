@@ -3,7 +3,7 @@
 extern "C" {
 #endif
 
-int face_recognition(char*, size_t len);
+double face_recognition(const unsigned char *pic, size_t len);
     
 
 #ifdef __cplusplus

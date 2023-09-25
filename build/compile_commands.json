@@ -148,6 +148,19 @@
       "-Wall",
       "-c",
       "-o",
+      "../src/camera/camera.o",
+      "../src/camera/camera.c"
+    ],
+    "directory": "/home/zzj/desktop/project/smart-home/build",
+    "file": "/home/zzj/desktop/project/smart-home/src/camera/camera.c",
+    "output": "/home/zzj/desktop/project/smart-home/src/camera/camera.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-c",
+      "-o",
       "../src/main.o",
       "../src/main.c"
     ],
@@ -174,11 +187,11 @@
       "-Wall",
       "-c",
       "-o",
-      "../src/tools/base64.o",
-      "../src/tools/base64.cpp"
+      "../src/tools/base64/base64.o",
+      "../src/tools/base64/base64.cpp"
     ],
     "directory": "/home/zzj/desktop/project/smart-home/build",
-    "file": "/home/zzj/desktop/project/smart-home/src/tools/base64.cpp",
-    "output": "/home/zzj/desktop/project/smart-home/src/tools/base64.o"
+    "file": "/home/zzj/desktop/project/smart-home/src/tools/base64/base64.cpp",
+    "output": "/home/zzj/desktop/project/smart-home/src/tools/base64/base64.o"
   }
 ]

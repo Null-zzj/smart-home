@@ -44,6 +44,8 @@ typedef struct {
     int client_array[255];
 }Client;
 
+int uartfd;
+
 
 Client client = {0,{-1}};
 
