@@ -14,10 +14,31 @@
 #define MONITOR 0x3
 #define LOCK 0x4
 
+#define IP "0.0.0.0"
+#define PORT 12000
+#define UART_PATH "/dev/ttyUSB0"
+
+typedef struct
+{
+    int fd;
+    struct sockaddr_in addr;
+    socklen_t addrlen;
+} SOCKINFO;
+
+
 typedef struct {
     int len;    // 编码长度
     char* buf;  // base编码
 }data;
+
+
+// client 保存所有连接上的客户端
+// count保存位置最大的客户端
+typedef struct
+{
+    int count;
+    int client_array[255];
+} Client;
 
 // 通用工具
 

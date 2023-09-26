@@ -34,7 +34,7 @@ int seven_led_ctl(int uart_fd, seven_led_ctl_t seven_led_ctl_cmd)
             {
                 if (write(uart_fd, write_ctl_cmd, sizeof(write_ctl_cmd))<0)
                 {
-                    perror("write");
+                    perror("seven_led_ctl");
                     return -1;
                 }
                 g_seven_led_status = 0xffff;
@@ -50,7 +50,7 @@ int seven_led_ctl(int uart_fd, seven_led_ctl_t seven_led_ctl_cmd)
             {
                 if (write(uart_fd, write_ctl_cmd, sizeof(write_ctl_cmd))<0)
                 {
-                    perror("write");
+                    perror("seven_led_ctl");
                     return -1;
                 }
                 g_seven_led_status = 0xffff;

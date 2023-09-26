@@ -50,7 +50,7 @@ int camera_init(char *devpath, unsigned int *width, unsigned int *height, unsign
     /*open 打开设备文件*/
     if ((fd = open(devpath, O_RDWR)) == -1)
     {
-        perror("open:");
+        perror("open camera:");
         return -1;
     }
     /*ioctl 查看支持的驱动*/

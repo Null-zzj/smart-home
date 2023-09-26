@@ -38,7 +38,7 @@ int led_ctl(int uart_fd,led_ctl_cmd_t led_ctl_cmd)
 
     if(write(uart_fd,write_ctl_cmd,sizeof(write_ctl_cmd)) < 0)
     {
-        perror("write");
+        perror("led_ctl");
         return -1;
     }
     sleep(2);

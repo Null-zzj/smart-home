@@ -11,9 +11,9 @@ int send_msg(int fd, const char* msg)
 {
     int ret;
     ret = write(fd, msg, 36);
-    if(ret != 4)
+    if(ret != 36)
     {
-        perror("write err");
+        perror("send_msg");
         return -1;
     }
     return ret;
@@ -24,27 +24,20 @@ int recv_msg(int fd, char* msg)
 {
     int ret;
     char *buf = msg;
-    ret = read(fd, buf, 1);
+    ret = read(fd, buf, 128);  // 尽可能的读取数据
     if(ret == -1)
     {
-        perror("read err");
+        perror("recv_msg");
         return -1;
     }
-    int count = 1;
-    while(1)
+    if(ret == 0)
     {
-        ret = read(fd, buf, 36 - count);
-        if(ret == -1)
-        {
-            perror("read err");
-            return -1;
-        }
-        count += ret;
-        buf += ret;
-        if(count == 36)
-        {
-            break;
-        }
+        return  0;
+    }
+    
+    if((u_char)*buf == 0xbb || (u_char)*buf == 0xdd || (u_char)*buf == 0xaa)
+    {
+        return -1;
     }
 
     switch ((u_char)*msg) {
@@ -54,10 +47,8 @@ int recv_msg(int fd, char* msg)
         return CLIENT;   // 来自客户端发送给m0的数据
     case 0xaa: 
         return MONITOR;  // 来自客户端的监控请求
+    default:
+        return -1;
     }
-   
 
-
-
-    return 0;
 }
