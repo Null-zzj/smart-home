@@ -1,6 +1,9 @@
 #include "common.h"
-
-
+#include <stdlib.h>
+// 放置所有的全局变量
+pthread_t pid;
+int uart_fd;
+Client client = {0, {-1}};
 int g_buzzer_status = 0;
 int g_led_status = 0;
 int g_seven_led_status = 0;
@@ -45,10 +48,41 @@ int recv_msg(int fd, char* msg)
         return SENSOR;   // 来自mo的数据
     case 0xdd: 
         return CLIENT;   // 来自客户端发送给m0的数据
-    case 0xaa: 
-        return MONITOR;  // 来自客户端的监控请求
+    
     default:
         return -1;
     }
 
+}
+
+SOCKINFO sockinit(char *ipaddr, unsigned short port)
+{
+    SOCKINFO sock;
+    memset(&sock, 0, sizeof(SOCKINFO));
+    sock.fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock.fd == -1)
+    {
+        perror("socket");
+        exit(-1);
+    }
+
+    sock.addr.sin_addr.s_addr = INADDR_ANY;
+    sock.addr.sin_family = AF_INET;
+    sock.addr.sin_port = htons(port);
+
+    int opt = 1;
+    setsockopt(sock.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)); // reuse address
+    int ret = bind(sock.fd, (struct sockaddr *)&sock.addr, sizeof(sock.addr));
+    if (ret == -1)
+    {
+        perror("bind");
+        exit(-1);
+    }
+    ret = listen(sock.fd, 255);
+    if (ret == -1)
+    {
+        perror("listen");
+        exit(-1);
+    }
+    return sock;
 }

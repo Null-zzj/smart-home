@@ -13,7 +13,7 @@ C_SRCS = ../src/client_msg/client_msg.c \
 			../src/tools/uart/buzzer_ctl.c \
 			../src/tools/uart/write_head_bit.c \
 			../src/tools/uart/separate_data.c \
-			../src/camera/camera.c \
+			../src/tools/camera/camera.c \
 			../src/main.c \
 
 CPP_SRCS = ../src/smart_lock/face_recognition.cpp \

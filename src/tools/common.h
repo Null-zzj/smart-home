@@ -11,8 +11,7 @@
 
 #define CLIENT 0x0
 #define SENSOR 0x1
-#define MONITOR 0x3
-#define LOCK 0x4
+#define LOCK 0x2
 
 #define IP "0.0.0.0"
 #define PORT 12000
@@ -39,14 +38,18 @@ typedef struct
     int count;
     int client_array[255];
 } Client;
-
+extern Client client;
 // 通用工具
 
 // 数据传输
+extern pthread_t pid;
+extern int uart_fd;
 
 
 int send_msg(int fd, const char* buf);
 int recv_msg(int fd, char* buf);
+SOCKINFO sockinit(char *ipaddr, unsigned short port);
+
 
 
 

@@ -1,1 +1,1 @@
-void smart_lock(char* str);
+void* smart_lock(void* str);

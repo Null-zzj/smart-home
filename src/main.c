@@ -17,27 +17,33 @@
 
 typedef void (*module_function)(char *);
 module_function modules_array[64]; // 模块函数指针数组
-Client client = {0, {-1}};
-int uart_fd;
+
+SOCKINFO sock;
+SOCKINFO cli_sock;
+
+
 
 SOCKINFO sockinit(char *ipaddr, unsigned short port);
 void module_function_init();
 int insert_client(int cfd); // 添加客户端
 int del_client(int fd);
 int uart_init();
+int strat();
 
 int main()
 {
-
-    char buf[32];
-    SOCKINFO cli_sock;
     bzero(&cli_sock, sizeof(SOCKINFO));
-    SOCKINFO sock;
     sock = sockinit(IP, PORT);
     uart_init();
+    start();
+    return 0;
+}
 
+
+int start()
+{
     int epfd = epoll_create(256);
-
+    char buf[32];
     struct epoll_event tep, ep_arr[256];
     memset(ep_arr, 0, sizeof(ep_arr));
     tep.events = EPOLLIN;
@@ -94,41 +100,9 @@ int main()
             }
         }
     }
-
-    return 0;
 }
 
-SOCKINFO sockinit(char *ipaddr, unsigned short port)
-{
-    SOCKINFO sock;
-    memset(&sock, 0, sizeof(SOCKINFO));
-    sock.fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock.fd == -1)
-    {
-        perror("socket");
-        exit(-1);
-    }
 
-    sock.addr.sin_addr.s_addr = INADDR_ANY;
-    sock.addr.sin_family = AF_INET;
-    sock.addr.sin_port = htons(port);
-
-    int opt = 1;
-    setsockopt(sock.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)); // reuse address
-    int ret = bind(sock.fd, (struct sockaddr *)&sock.addr, sizeof(sock.addr));
-    if (ret == -1)
-    {
-        perror("bind");
-        exit(-1);
-    }
-    ret = listen(sock.fd, 255);
-    if (ret == -1)
-    {
-        perror("listen");
-        exit(-1);
-    }
-    return sock;
-}
 
 int uart_init()
 {
@@ -188,6 +162,5 @@ void module_function_init()
 {
     modules_array[CLIENT] = client_msg;
     modules_array[SENSOR] = sensor_info;
-    modules_array[MONITOR] = 0;
     modules_array[LOCK] = smart_lock;
 }

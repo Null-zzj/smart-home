@@ -1,13 +1,14 @@
-#include "../camera/camera.h"
+#include "../tools/camera/camera.h"
 #include "../tools/uart/fan_ctl.h"
 #include "face_recognition.h"
+#include "../tools/common.h"
 #include <pthread.h>
 #include <unistd.h>
 
-extern int uart_fd;
+
 
 // 智能锁线程
-void smart_lock(char *str)
+void* smart_lock(void *str)
 {
 
     // 初始化摄像头
