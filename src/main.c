@@ -3,6 +3,7 @@
 #include "smart_lock/smart_lock.h"
 #include "tools/common.h"
 #include "tools/uart/uart.h"
+#include "monitor/monitor.h"
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <pthread.h>
@@ -28,7 +29,7 @@ void module_function_init();
 int insert_client(int cfd); // 添加客户端
 int del_client(int fd);
 int uart_init();
-int strat();
+int start();
 
 int main()
 {
@@ -162,5 +163,5 @@ void module_function_init()
 {
     modules_array[CLIENT] = client_msg;
     modules_array[SENSOR] = sensor_info;
-    modules_array[LOCK] = smart_lock;
+  
 }

@@ -45,9 +45,11 @@ int recv_msg(int fd, char* msg)
 
     switch ((u_char)*msg) {
     case 0xbb:
-        return SENSOR;   // 来自mo的数据
+        return SENSOR;   // 来自m0的数据
     case 0xdd: 
         return CLIENT;   // 来自客户端发送给m0的数据
+    case 0xaa:
+        return CLIENT;
     
     default:
         return -1;

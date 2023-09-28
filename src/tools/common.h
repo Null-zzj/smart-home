@@ -12,6 +12,7 @@
 #define CLIENT 0x0
 #define SENSOR 0x1
 #define LOCK 0x2
+#define MONITOR 0x3
 
 #define IP "0.0.0.0"
 #define PORT 12000
