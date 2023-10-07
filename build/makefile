@@ -31,6 +31,9 @@ LIBS =  -lpthread -lcurl -lstdc++ -ljsoncpp
 # gcc编译参数 
 CFLAGS = -Wall 
 
+#
+
+
 # 规则编译.o 
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -40,7 +43,7 @@ CFLAGS = -Wall
 
 # 链接目标
 $(TARGET): $(C_OBJS) $(CPP_OBJS)
-	$(CC) -o $(TARGET) $(C_OBJS) $(CPP_OBJS) $(LIBS)
+	$(CC) -o $(TARGET) $(C_OBJS) $(CPP_OBJS) $(LIBS) $(LDFLAGS)
 
 # 清理
 clean:

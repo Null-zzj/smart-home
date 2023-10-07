@@ -1,9 +1,10 @@
 #include "client_msg/client_msg.h"
+#include "monitor/monitor.h"
 #include "sensor_info/sensor_info.h"
 #include "smart_lock/smart_lock.h"
 #include "tools/common.h"
+#include "tools/uart/led_ctl.h"
 #include "tools/uart/uart.h"
-#include "monitor/monitor.h"
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <pthread.h>
@@ -22,8 +23,6 @@ module_function modules_array[64]; // 模块函数指针数组
 SOCKINFO sock;
 SOCKINFO cli_sock;
 
-
-
 SOCKINFO sockinit(char *ipaddr, unsigned short port);
 void module_function_init();
 int insert_client(int cfd); // 添加客户端
@@ -33,28 +32,39 @@ int start();
 
 int main()
 {
+
+    // int ret;
     bzero(&cli_sock, sizeof(SOCKINFO));
     sock = sockinit(IP, PORT);
     uart_init();
+    pthread_t lock_pid;
+    pthread_t uart_pid;
+    pthread_create(&lock_pid, NULL, smart_lock, NULL);
+    pthread_create(&uart_pid, NULL, sensor_info, NULL);
+
     start();
     return 0;
-}
 
+}
 
 int start()
 {
     int epfd = epoll_create(256);
-    char buf[32];
+    char buf[128];
     struct epoll_event tep, ep_arr[256];
     memset(ep_arr, 0, sizeof(ep_arr));
-    tep.events = EPOLLIN;
-    tep.data.fd = sock.fd;
 
+    // listen fd
+    tep.events = EPOLLIN;  
+    tep.data.fd = sock.fd;
     int ret = epoll_ctl(epfd, EPOLL_CTL_ADD, sock.fd, &tep);
     if (ret == -1)
     {
         perror("epoll_ctl");
     }
+
+
+
     while (1)
     {
         epoll_wait(epfd, ep_arr, 256, -1);
@@ -80,22 +90,19 @@ int start()
                 else
                 { // client send data
                     int len = recv_msg(ep_arr[i].data.fd, buf);
-                    if (len == -1)
-                    {
-                        perror("main recv_msg");
-                    }
-                    else if (len == 0)
+
+                    if (len == 0)
                     { // client close
                         ret = epoll_ctl(epfd, EPOLL_CTL_DEL, ep_arr[i].data.fd, NULL);
-
                         close(ep_arr[i].data.fd);
                         del_client(ep_arr[i].data.fd);
                         printf("client close\n");
-                        // exit(0);
                     }
-                    else if (len == 4)
+                    else
                     {
-                        modules_array[(u_int8_t)buf[0]](buf); // 函数指针
+                        client_msg(buf);
+                        // printf("epoll %s", buf);
+                        // modules_array[(u_int8_t)buf[0]](buf); // 函数指针
                     }
                 }
             }
@@ -103,11 +110,9 @@ int start()
     }
 }
 
-
-
 int uart_init()
 {
-    int uart_fd = open(UART_PATH, O_RDWR);
+    uart_fd = open(UART_PATH, O_RDWR);
     if (uart_fd < 0)
     {
         perror("Error opening USB serial port");
@@ -117,6 +122,9 @@ int uart_init()
     {
         return -1;
     }
+    printf("uart init success %d\n", uart_fd);
+    
+
     return uart_fd;
 }
 
@@ -162,6 +170,5 @@ int del_client(int fd)
 void module_function_init()
 {
     modules_array[CLIENT] = client_msg;
-    modules_array[SENSOR] = sensor_info;
-  
+    modules_array[SENSOR] = NULL;
 }

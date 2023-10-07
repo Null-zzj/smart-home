@@ -13,8 +13,8 @@ Modified by:                            (2023-3-2): 修改原因
 
 #include "separate_data.h"
 
-
-void separte_data(unsigned char *data,environmental_data_t *environmental_data)
+environmental_data_t environmental_data;
+void separte_data(char *data,environmental_data_t *environmental_data)
 {
 
 
@@ -54,6 +54,7 @@ void separte_data(unsigned char *data,environmental_data_t *environmental_data)
 
 
     //判断灯是否打开
+    /*
     if(0x00 ==data[24])
     {
         g_led_status = 0;
@@ -62,7 +63,7 @@ void separte_data(unsigned char *data,environmental_data_t *environmental_data)
     {
         g_led_status = 0xffff;
     }
-
+    */
 
     //填充各种信息
     environmental_data->tep_low  = data[4];

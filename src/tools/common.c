@@ -1,5 +1,6 @@
 #include "common.h"
 #include <stdlib.h>
+#include <strings.h>
 // 放置所有的全局变量
 pthread_t pid;
 int uart_fd;
@@ -10,11 +11,11 @@ int g_seven_led_status = 0;
 int g_fan_status = 0;
 
 
-int send_msg(int fd, const char* msg)
+int send_msg(int fd, const char *msg)
 {
     int ret;
     ret = write(fd, msg, 36);
-    if(ret != 36)
+    if (ret != 36)
     {
         perror("send_msg");
         return -1;
@@ -22,39 +23,49 @@ int send_msg(int fd, const char* msg)
     return ret;
 }
 
-
-int recv_msg(int fd, char* msg)
+int recv_msg(int fd, char *msg)
 {
     int ret;
     char *buf = msg;
-    ret = read(fd, buf, 128);  // 尽可能的读取数据
-    if(ret == -1)
-    {
-        perror("recv_msg");
-        return -1;
-    }
-    if(ret == 0)
-    {
-        return  0;
-    }
+    bzero(buf, 32);
+    ret = read(fd, buf, 128); // 尽可能的读取数据
+    if (ret == -1)
+        perror("read");
+
     
-    if((u_char)*buf == 0xbb || (u_char)*buf == 0xdd || (u_char)*buf == 0xaa)
+
+    for (int i = 0; i < 36; i++)
+    {
+        printf("%d ", buf[i]);
+    }
+    puts("");
+
+    if (ret == -1)
     {
         return -1;
+    }
+    if (ret == 0)
+    {
+        return 0;
+    }
+
+    if ((u_char)*buf == 0xbb || (u_char)*buf == 0xdd || (u_char)*buf == 0xaa)
+    {
+        return *buf;
     }
 
     switch ((u_char)*msg) {
     case 0xbb:
         return SENSOR;   // 来自m0的数据
-    case 0xdd: 
+    case 0xdd:
         return CLIENT;   // 来自客户端发送给m0的数据
     case 0xaa:
         return CLIENT;
-    
+
     default:
         return -1;
     }
-
+    
 }
 
 SOCKINFO sockinit(char *ipaddr, unsigned short port)
@@ -73,7 +84,8 @@ SOCKINFO sockinit(char *ipaddr, unsigned short port)
     sock.addr.sin_port = htons(port);
 
     int opt = 1;
-    setsockopt(sock.fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)); // reuse address
+    setsockopt(sock.fd, SOL_SOCKET, SO_REUSEADDR, &opt,
+               sizeof(opt)); // reuse address
     int ret = bind(sock.fd, (struct sockaddr *)&sock.addr, sizeof(sock.addr));
     if (ret == -1)
     {

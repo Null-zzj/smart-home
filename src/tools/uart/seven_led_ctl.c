@@ -18,7 +18,7 @@ Modified by:                            (2023-3-2): 修改原因
 
 int seven_led_ctl(int uart_fd, seven_led_ctl_t seven_led_ctl_cmd)
 {
-    unsigned char write_ctl_cmd[36]={0};
+    char write_ctl_cmd[36]={0};
 
     write_head_bit(write_ctl_cmd);//设置头部数据
 
@@ -34,7 +34,7 @@ int seven_led_ctl(int uart_fd, seven_led_ctl_t seven_led_ctl_cmd)
             {
                 if (write(uart_fd, write_ctl_cmd, sizeof(write_ctl_cmd))<0)
                 {
-                    perror("seven_led_ctl");
+                    perror("write");
                     return -1;
                 }
                 g_seven_led_status = 0xffff;
@@ -50,7 +50,7 @@ int seven_led_ctl(int uart_fd, seven_led_ctl_t seven_led_ctl_cmd)
             {
                 if (write(uart_fd, write_ctl_cmd, sizeof(write_ctl_cmd))<0)
                 {
-                    perror("seven_led_ctl");
+                    perror("write");
                     return -1;
                 }
                 g_seven_led_status = 0xffff;

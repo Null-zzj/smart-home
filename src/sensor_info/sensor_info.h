@@ -1,1 +1,1 @@
-void sensor_info(char* buf);
+void *sensor_info(void *arg);

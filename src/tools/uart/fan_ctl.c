@@ -19,7 +19,7 @@ Modified by:                            (2023-3-2): 修改原因
 
 int fan_ctl(int uart_fd,fan_ctl_cmd_t fan_ctl_cmd)
 {
-    unsigned char write_ctl_cmd[36] ={0};
+    char write_ctl_cmd[36] ={0};
 
     write_head_bit(write_ctl_cmd);//头部数据的设置
 
@@ -33,7 +33,7 @@ int fan_ctl(int uart_fd,fan_ctl_cmd_t fan_ctl_cmd)
             {
                 if(write(uart_fd,write_ctl_cmd,sizeof(write_ctl_cmd)) < 0)
                 {
-                    perror("fan_ctl");
+                    perror("write");
                     return -1;
                 }
                 sleep(2);
@@ -48,7 +48,7 @@ int fan_ctl(int uart_fd,fan_ctl_cmd_t fan_ctl_cmd)
             {
                 if(write(uart_fd,write_ctl_cmd,sizeof(write_ctl_cmd)) < 0)
                 {
-                    perror("fan_ctl");
+                    perror("write");
                     return -1;
                 }
                 sleep(2);
@@ -63,7 +63,7 @@ int fan_ctl(int uart_fd,fan_ctl_cmd_t fan_ctl_cmd)
             {
                 if(write(uart_fd,write_ctl_cmd,sizeof(write_ctl_cmd)) < 0)
                 {
-                    perror("fan_ctl");
+                    perror("write");
                     return -1;
                 }
                 sleep(2);
@@ -83,8 +83,6 @@ int fan_ctl(int uart_fd,fan_ctl_cmd_t fan_ctl_cmd)
                 case FAN_ON_HIGH:
                     write_ctl_cmd[4] = FAN_ON_HIGH;
                     break;
-                default:
-                    break;
             }
 
             //写入zigbee中，并且根据返回的开关状态来判断是否打开了
@@ -92,7 +90,7 @@ int fan_ctl(int uart_fd,fan_ctl_cmd_t fan_ctl_cmd)
             {
                 if(write(uart_fd,write_ctl_cmd,sizeof(write_ctl_cmd)) < 0)
                 {
-                    perror("fan_ctl");
+                    perror("write");
                     return -1;
                 }
                 sleep(2);

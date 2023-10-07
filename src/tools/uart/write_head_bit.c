@@ -12,7 +12,7 @@ Modified by:                            (2023-3-2): 修改原因
 
 #include "write_head_bit.h"
 
-void write_head_bit(unsigned char *head_data)
+void write_head_bit(char *head_data)
 {
     head_data[0] = 0xdd;        //命令
     head_data[1] = 0x07;        //id

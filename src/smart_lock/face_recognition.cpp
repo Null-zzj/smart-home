@@ -70,11 +70,11 @@ double face_recognition(const unsigned char *pic, size_t len)
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &result);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, onWriteData);
         res = curl_easy_perform(curl);
-        std::cout << result << std::endl;
+        // std::cout << result << std::endl;
 
         score = json_parse(result);
-        std::cout << "识别成功：辨识度为"  << score << std::endl;
-        printf("printf socre %.10lf\n", score);
+        // std::cout << "识别成功：辨识度为"  << score << std::endl;
+        // printf("printf socre %.10lf\n", score);
     }
     curl_easy_cleanup(curl);
 

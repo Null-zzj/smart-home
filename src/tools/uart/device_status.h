@@ -1,5 +1,5 @@
 #ifndef __DEVICE_STATUS_H__
-#define __DEVICE_STATUS_H__
+#define __DEVICE_STATUS_H
 
 //声明的外部变量
 
