@@ -15,7 +15,7 @@ void* smart_lock(void *str)
 
     // 初始化摄像头
     unsigned int width = 640, height = 480, size, ismjpeg, index;
-    int fd = camera_init("/dev/video2", &width, &height, &size, &ismjpeg);
+    int fd = camera_init("/dev/video0", &width, &height, &size, &ismjpeg);
     if (fd == -1)
     {
         perror("camera open:");
@@ -39,9 +39,8 @@ void* smart_lock(void *str)
             sleep(2);
             fan_ctl(uart_fd, FAN_OFF);
 
-        }
-
+        }   
         camera_eqbuf(fd, index);
-        usleep(700000);
+        sleep(20);
     }
 }
