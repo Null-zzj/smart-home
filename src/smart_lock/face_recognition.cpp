@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string.h>
 #include <curl/curl.h>
-#include <jsoncpp/json/json.h>
 #include <fstream>
 #include <memory>
 #include <string>
@@ -17,30 +16,7 @@ inline size_t onWriteData(void *buffer, size_t size, size_t nmemb, void *userp)
     return nmemb;
 }
 
-double json_parse(std::string jsonStr)
-{
-    Json::Value root;
-    Json::CharReaderBuilder builder;
-    Json::CharReader* reader = builder.newCharReader();
-    std::string errors;
-    bool parsingSuccessful = reader->parse(jsonStr.c_str(), jsonStr.c_str() + jsonStr.size(), &root, &errors);
-    delete reader;
 
-    if (!parsingSuccessful) {
-        std::cerr << "Failed to parse JSON: " << errors << std::endl;
-        return 1;
-    }
-
-    int errorCode = root["error_code"].asInt();
-    if (errorCode == 0) {
-        double score = root["result"]["user_list"][0]["score"].asDouble();
-        std::cout << "Score: " << score << std::endl;
-        return score;
-    } else {
-        std::cerr << "Error: " << root["error_msg"].asString() << std::endl;
-        return -1;
-    }
-}
 
 double face_recognition(const unsigned char *pic, size_t len)
 {
@@ -70,9 +46,9 @@ double face_recognition(const unsigned char *pic, size_t len)
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &result);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, onWriteData);
         res = curl_easy_perform(curl);
-        // std::cout << result << std::endl;
+        std::cout << result << std::endl;
 
-        score = json_parse(result);
+        
         // std::cout << "识别成功：辨识度为"  << score << std::endl;
         // printf("printf socre %.10lf\n", score);
     }

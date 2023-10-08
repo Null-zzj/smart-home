@@ -15,7 +15,7 @@ void* smart_lock(void *str)
 
     // 初始化摄像头
     unsigned int width = 640, height = 480, size, ismjpeg, index;
-    int fd = camera_init("/dev/video2", &width, &height, &size, &ismjpeg);
+    int fd = camera_init("/dev/video0", &width, &height, &size, &ismjpeg);
     if (fd == -1)
     {
         perror("camera open:");
