@@ -12,6 +12,12 @@ void *sensor_info(void *arg)
     {
         bzero(buf, 128);
         read(uart_fd, buf, 128);
+        int i;
+        for(i = 0; i < 36; i++)
+        {
+            printf("%d ", buf[i]);
+        }
+        puts("");
         separte_data(buf,&environmental_data);
         for (int i = 0; i < client.count; i++)
         {

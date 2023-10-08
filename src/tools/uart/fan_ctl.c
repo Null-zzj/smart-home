@@ -29,33 +29,25 @@ int fan_ctl(int uart_fd,fan_ctl_cmd_t fan_ctl_cmd)
         case FAN_ON:
             write_ctl_cmd[4] = FAN_ON;
             //写入zigbee中，并且根据返回的开关状态来判断是否打开了
-            while(g_fan_status == 0)
+            if(write(uart_fd,write_ctl_cmd,sizeof(write_ctl_cmd)) < 0)
             {
-                if(write(uart_fd,write_ctl_cmd,sizeof(write_ctl_cmd)) < 0)
-                {
-                    perror("write");
-                    return -1;
-                }
-                sleep(2);
+                perror("write");
+                return -1;
             }
+        
             break;
 
 
         case FAN_OFF:
             write_ctl_cmd[4] = FAN_OFF;
             //写入zigbee中，并且根据返回的开关状态来判断是否打开了
-            while(g_fan_status == 0xffff)
+           
+            if(write(uart_fd,write_ctl_cmd,sizeof(write_ctl_cmd)) < 0)
             {
-                if(write(uart_fd,write_ctl_cmd,sizeof(write_ctl_cmd)) < 0)
-                {
-                    perror("write");
-                    return -1;
-                }
-                sleep(2);
+                perror("write");
+                return -1;
             }
             break;
-
-
         default:
             write_ctl_cmd[4] = FAN_ON;   //如果风扇没有打开那就先打开后设置风扇速度
             //写入zigbee中，并且根据返回的开关状态来判断是否打开了
@@ -82,6 +74,8 @@ int fan_ctl(int uart_fd,fan_ctl_cmd_t fan_ctl_cmd)
 
                 case FAN_ON_HIGH:
                     write_ctl_cmd[4] = FAN_ON_HIGH;
+                    break;
+                default:
                     break;
             }
 
