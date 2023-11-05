@@ -1,14 +1,11 @@
 #include <cstddef>
 #include <curl/curl.h>
-<<<<<<< HEAD
-=======
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
 
 #include "../tools/base64/base64.h"
 #include "face_recognition.h"
->>>>>>> refs/remotes/origin/main
 #include <fstream>
 #include <memory>
 #include <string>
@@ -20,9 +17,6 @@ inline size_t onWriteData(void *buffer, size_t size, size_t nmemb, void *userp)
     return nmemb;
 }
 
-<<<<<<< HEAD
-
-=======
 int getscore(std::string json)
 {
     // 获取score的值
@@ -41,7 +35,6 @@ int getscore(std::string json)
     std::cout << "score: " << score << std::endl;
     return score;
 }
->>>>>>> refs/remotes/origin/main
 
 double face_recognition(const unsigned char *pic, size_t len)
 {
@@ -73,11 +66,7 @@ double face_recognition(const unsigned char *pic, size_t len)
         res = curl_easy_perform(curl);
         std::cout << result << std::endl;
 
-<<<<<<< HEAD
-        
-=======
         score = getscore(result);
->>>>>>> refs/remotes/origin/main
         // std::cout << "识别成功：辨识度为"  << score << std::endl;
         // printf("printf socre %.10lf\n", score);
     }
