@@ -1,30 +1,20 @@
 #include <arpa/inet.h>
 #include <errno.h>
-#include <errno.h>
-#include <fcntl.h>
 #include <fcntl.h>
 #include <linux/videodev2.h>
 #include <netinet/in.h>
 #include <pthread.h>
 #include <signal.h>
 #include <stdio.h>
-#include <stdio.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <stdlib.h>
-#include <stdlib.h>
-#include <string.h>
-#include <string.h>
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/types.h>
 #include <sys/un.h>
 #include <termios.h>
-#include <unistd.h>
 #include <unistd.h>
 
 #define REQBUFS_COUNT 4
@@ -203,7 +193,8 @@ int camera_dqbuf(int fd, void **buf, unsigned int *size, unsigned int *index)
         FD_SET(fd, &fds);
         timeout.tv_sec = 2;
         timeout.tv_usec = 0;
-        ret = select(fd + 1, &fds, NULL, NULL, &timeout); //使用select机制,保证fd有图片的时候才能出对
+        ret = select(fd + 1, &fds, NULL, NULL,
+                     &timeout); //使用select机制,保证fd有图片的时候才能出对
         if (ret == -1)
         {
             perror("camera->dbytesusedqbuf");
