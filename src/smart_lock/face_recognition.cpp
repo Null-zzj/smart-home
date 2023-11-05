@@ -1,13 +1,17 @@
 #include <cstddef>
-#include <stdio.h>
-#include <iostream>
-#include <string.h>
 #include <curl/curl.h>
+<<<<<<< HEAD
+=======
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+
+#include "../tools/base64/base64.h"
+#include "face_recognition.h"
+>>>>>>> refs/remotes/origin/main
 #include <fstream>
 #include <memory>
 #include <string>
-#include "face_recognition.h"
-#include "../tools/base64/base64.h"
 
 inline size_t onWriteData(void *buffer, size_t size, size_t nmemb, void *userp)
 {
@@ -16,7 +20,28 @@ inline size_t onWriteData(void *buffer, size_t size, size_t nmemb, void *userp)
     return nmemb;
 }
 
+<<<<<<< HEAD
 
+=======
+int getscore(std::string json)
+{
+    // 获取score的值
+
+    int start = json.find("score\":");
+    if(start == std::string::npos)
+    {
+        return 0;
+    }
+    std::string score_str = json.substr(start + 7, 6);
+
+    // 将score的值转换为整数
+    int score = std::stoi(score_str);
+
+    // 输出score的值
+    std::cout << "score: " << score << std::endl;
+    return score;
+}
+>>>>>>> refs/remotes/origin/main
 
 double face_recognition(const unsigned char *pic, size_t len)
 {
@@ -33,7 +58,7 @@ double face_recognition(const unsigned char *pic, size_t len)
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_easy_setopt(curl, CURLOPT_URL,
                          "https://aip.baidubce.com/rest/2.0/face/v3/"
-                         "search?access_token=24.f070273410a38f2184ddb1ad24507cdf.2592000.1697463129.282335-39376742");
+                         "search?access_token=24.5371a42f3cdb554efc30d0745aa30047.2592000.1699336287.282335-40689721");
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
         curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, "https");
         struct curl_slist *headers = NULL;
@@ -48,12 +73,15 @@ double face_recognition(const unsigned char *pic, size_t len)
         res = curl_easy_perform(curl);
         std::cout << result << std::endl;
 
+<<<<<<< HEAD
         
+=======
+        score = getscore(result);
+>>>>>>> refs/remotes/origin/main
         // std::cout << "识别成功：辨识度为"  << score << std::endl;
         // printf("printf socre %.10lf\n", score);
     }
     curl_easy_cleanup(curl);
 
-  
-    return score * 100;
+    return score;
 }

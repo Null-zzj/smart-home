@@ -39,9 +39,8 @@ void* smart_lock(void *str)
             sleep(2);
             fan_ctl(uart_fd, FAN_OFF);
 
-        }
-
+        }   
         camera_eqbuf(fd, index);
-        usleep(700000);
+        sleep(20);
     }
 }
